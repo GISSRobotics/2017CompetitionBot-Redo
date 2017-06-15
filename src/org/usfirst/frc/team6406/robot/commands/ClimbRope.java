@@ -1,20 +1,15 @@
 package org.usfirst.frc.team6406.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team6406.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
-public class DriveWithJoystick extends Command {
+public class ClimbRope extends Command {
 	
-    public DriveWithJoystick() {
+    public ClimbRope() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.winch);
     }
 
     // Called just before this Command runs the first time
@@ -23,21 +18,22 @@ public class DriveWithJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Joystick stick =  Robot.oi.getJoystick();
-    	Robot.driveTrain.Drive(-stick.getRawAxis(1), -stick.getRawAxis(0));
+    	Robot.winch.SetPower(1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return !Robot.oi.getJoystick().getRawButton(12);
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.winch.SetPower(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+
 }

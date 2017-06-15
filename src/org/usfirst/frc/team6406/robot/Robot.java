@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import org.usfirst.frc.team6406.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team6406.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team6406.robot.subsystems.Winch;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,9 +23,9 @@ import org.usfirst.frc.team6406.robot.subsystems.Drivetrain;
  */
 public class Robot extends IterativeRobot {
 
-	public static OI oi;
-	
-	public static Drivetrain driveTrain;
+	public static OI oi = new OI();
+	public static Drivetrain driveTrain = new Drivetrain();
+	public static Winch winch = new Winch();
 	
 	private Command autonomousCommand;
 	private Command driveWithJoystick;
@@ -38,8 +39,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		driveTrain = new Drivetrain();
-		oi = new OI();
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -92,7 +91,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		driveWithJoystick = new DriveWithJoystick(oi, driveTrain);
+		driveWithJoystick = new DriveWithJoystick();
 		driveWithJoystick.start();
 	}
 
