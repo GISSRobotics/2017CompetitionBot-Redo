@@ -12,6 +12,7 @@ public class Winch extends Subsystem {
 	
 	public Winch() {
 		winchMotor = new VictorSP(RobotMap.WINCH_MOTOR);
+		winchMotor.setInverted(true);
 	}
 
     public void initDefaultCommand() {
@@ -20,7 +21,7 @@ public class Winch extends Subsystem {
     }
     
     public void SetPower(double power) {
-    	winchMotor.set(power);
+    	winchMotor.set(Math.abs(power));
     	SmartDashboard.putNumber("Winch Power", power);
     }
 

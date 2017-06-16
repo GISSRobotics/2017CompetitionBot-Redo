@@ -12,10 +12,12 @@ import org.usfirst.frc.team6406.robot.commands.ClimbRope;
 public class OI {
 	
 	public Joystick stick;
+	public JoystickButton btn1;
 	public JoystickButton btn12;
 	
 	public OI () {
 		stick = new Joystick(0);
+		btn1 = new JoystickButton(stick, 1); // TOggle gear
 		btn12 = new JoystickButton(stick, 12); // P: Climb @ 100%. R: "Stop" Climb @ 0%
 		btn12.whenPressed(new ClimbRope());
 	}

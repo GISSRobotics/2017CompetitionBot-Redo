@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import org.usfirst.frc.team6406.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team6406.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6406.robot.subsystems.Winch;
+import org.usfirst.frc.team6406.robot.subsystems.GearSleeve;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,9 +24,10 @@ import org.usfirst.frc.team6406.robot.subsystems.Winch;
  */
 public class Robot extends IterativeRobot {
 
-	public static OI oi = new OI();
 	public static Drivetrain driveTrain = new Drivetrain();
 	public static Winch winch = new Winch();
+	//public static GearSleeve gearSleeve = new GearSleeve();
+	public static OI oi = new OI();
 	
 	private Command autonomousCommand;
 	private Command driveWithJoystick;
@@ -101,6 +103,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		//gearSleeve.Update();
+		
 		double volts = pdp.getVoltage();
 		SmartDashboard.putNumber("Battery Voltage", volts);
 	}
