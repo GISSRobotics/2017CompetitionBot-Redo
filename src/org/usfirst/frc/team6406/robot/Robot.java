@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team6406.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,7 +27,7 @@ public class Robot extends IterativeRobot {
 
 	public static Drivetrain driveTrain = new Drivetrain();
 	public static Winch winch = new Winch();
-	//public static GearSleeve gearSleeve = new GearSleeve();
+	public static GearSleeve gearSleeve = new GearSleeve();
 	public static OI oi = new OI();
 	
 	private Command autonomousCommand;
@@ -41,6 +42,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		CameraServer.getInstance().startAutomaticCapture(0);
+		CameraServer.getInstance().startAutomaticCapture(1);
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -104,7 +107,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		//gearSleeve.Update();
+		gearSleeve.Update();
 		
 		double volts = pdp.getVoltage();
 		SmartDashboard.putNumber("Battery Voltage", volts);

@@ -26,7 +26,7 @@ public class GearSleeve extends Subsystem {
 		gearMotor = new VictorSP(RobotMap.GEAR_MOTOR);
 		downLimit = new DigitalInput(RobotMap.GEAR_LIMIT_DOWN);
 		loadedSwitch = new DigitalInput(RobotMap.GEAR_STATUS);
-		upLimit = new Counter(RobotMap.GEAR_MOTOR);
+		upLimit = new Counter(RobotMap.GEAR_LIMIT_UP);
 	}
 	
 	protected void initDefaultCommand() {

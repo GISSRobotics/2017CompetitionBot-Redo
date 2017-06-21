@@ -2,6 +2,7 @@ package org.usfirst.frc.team6406.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6406.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,7 +25,10 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Joystick stick =  Robot.oi.getJoystick();
-    	Robot.driveTrain.Drive(-stick.getRawAxis(1), -stick.getRawAxis(0));
+    	double reverse = stick.getRawButton(2) ? -1.0 : 1.0;
+    	double sensitivity = (stick.getRawAxis(3)/-2.0) + 0.5;
+    	SmartDashboard.putNumber("Sensitivity", sensitivity);
+    	Robot.driveTrain.Drive(-stick.getRawAxis(1)*sensitivity*reverse, -stick.getRawAxis(0)*sensitivity);
     }
 
     // Make this return true when this Command no longer needs to run execute()

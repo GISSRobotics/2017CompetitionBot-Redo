@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6406.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team6406.robot.Robot;
 
@@ -9,12 +8,12 @@ public class ToggleGear extends Command {
 	public ToggleGear() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	//requires(Robot.gearSleeve);
+    	requires(Robot.gearSleeve);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.gearSleeve.Toggle();
+    	Robot.gearSleeve.Toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run
