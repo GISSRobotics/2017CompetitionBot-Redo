@@ -16,6 +16,8 @@ import org.usfirst.frc.team6406.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6406.robot.subsystems.Winch;
 import org.usfirst.frc.team6406.robot.subsystems.GearSleeve;
 
+import org.usfirst.frc.team6406.robot.autonomous.FullAuto;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -32,6 +34,7 @@ public class Robot extends IterativeRobot {
 	
 	private Command autonomousCommand;
 	private Command driveWithJoystick;
+	
 	private PowerDistributionPanel pdp;
 	
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -76,6 +79,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		autonomousCommand = new FullAuto(FullAuto.Start.CENTER);
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -90,12 +94,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
 		driveWithJoystick = new DriveWithJoystick();
 		driveWithJoystick.start();
 	}

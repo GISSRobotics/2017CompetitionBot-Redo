@@ -45,6 +45,12 @@ public class GearSleeve extends Subsystem {
 		SmartDashboard.putBoolean("Get Up?", isUpStatus);
 	}
 	
+	public void Lower() {
+		isUp = false;
+		isUpStatus = false;
+		SmartDashboard.putBoolean("Get Up?", isUpStatus);
+	}
+	
 	public boolean Update() {
 		isLoaded = !loadedSwitch.get();
 		SmartDashboard.putBoolean("Gear Loaded?", isLoaded);
