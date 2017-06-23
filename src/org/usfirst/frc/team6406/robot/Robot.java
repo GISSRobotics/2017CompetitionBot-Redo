@@ -42,12 +42,16 @@ public class Robot extends IterativeRobot {
 	
 	private PowerDistributionPanel pdp;
 	
+	private UsbCamera cam0;
+	private UsbCamera cam1;
+	
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	private void updateCamera() {
-		CameraServer.getInstance().removeCamera("cam");
-		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture("cam", currentCamera);
-		cam.setResolution(640, 480);
+		//CameraServer.getInstance().removeCamera("cam");
+		cam0 = CameraServer.getInstance().startAutomaticCapture(0);
+		cam1 = CameraServer.getInstance().startAutomaticCapture(1);
+		//cam.setResolution(640, 480);
 	}
 
 	/**
@@ -119,7 +123,7 @@ public class Robot extends IterativeRobot {
 		
 		if (btn && !lastBtn) {
 			currentCamera = (currentCamera == 0) ? 1 : 0;
-			updateCamera();
+			//updateCamera();
 		}
 		
 		lastBtn = btn;
