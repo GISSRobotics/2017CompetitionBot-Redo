@@ -42,13 +42,13 @@ public class GearSleeve extends Subsystem {
 	public void Raise() {
 		isUp = true;
 		isUpStatus = true;
-		SmartDashboard.putBoolean("Get Up?", isUpStatus);
+		SmartDashboard.putBoolean("Gear Up?", isUpStatus);
 	}
 	
 	public void Lower() {
 		isUp = false;
 		isUpStatus = false;
-		SmartDashboard.putBoolean("Get Up?", isUpStatus);
+		SmartDashboard.putBoolean("Gear Up?", isUpStatus);
 	}
 	
 	public boolean Update() {
