@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+
+import edu.wpi.cscore.UsbCamera;
 
 import org.usfirst.frc.team6406.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team6406.robot.subsystems.Drivetrain;
@@ -32,12 +33,22 @@ public class Robot extends IterativeRobot {
 	public static GearSleeve gearSleeve = new GearSleeve();
 	public static OI oi = new OI();
 	
+	private int currentCamera = 0;
+	
 	private Command autonomousCommand;
 	private Command driveWithJoystick;
+	
+	private boolean lastBtn = false;
 	
 	private PowerDistributionPanel pdp;
 	
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	
+	private void updateCamera() {
+		CameraServer.getInstance().removeCamera("cam");
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture("cam", currentCamera);
+		cam.setResolution(640, 480);
+	}
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -45,8 +56,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		CameraServer.getInstance().startAutomaticCapture(0);
-		CameraServer.getInstance().startAutomaticCapture(1);
+		updateCamera();
 		pdp = new PowerDistributionPanel();
 	}
 
@@ -104,6 +114,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		boolean btn = oi.getJoystick().getRawButton(3);
+		
+		if (btn && !lastBtn) {
+			currentCamera = (currentCamera == 0) ? 1 : 0;
+			updateCamera();
+		}
+		
+		lastBtn = btn;
 		
 		gearSleeve.Update();
 		
