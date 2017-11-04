@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class GearSleeve extends Subsystem {
 
 	private VictorSP gearMotor;
-	private DigitalInput downLimit;
-	private DigitalInput loadedSwitch;
+	public DigitalInput downLimit;
+	public DigitalInput loadedSwitch;
 	private Counter upLimit;
 	
 	private boolean isUp = false;

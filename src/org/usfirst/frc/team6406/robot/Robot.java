@@ -2,6 +2,7 @@
 package org.usfirst.frc.team6406.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,7 +17,7 @@ import org.usfirst.frc.team6406.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team6406.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6406.robot.subsystems.Winch;
 import org.usfirst.frc.team6406.robot.subsystems.GearSleeve;
-
+import org.usfirst.frc.team6406.robot.autonomous.DriveForwardBy;
 import org.usfirst.frc.team6406.robot.autonomous.FullAuto;
 
 /**
@@ -61,7 +62,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		updateCamera();
-		pdp = new PowerDistributionPanel();
+		Encoder encoder = new Encoder(RobotMap.DRIVE_ENCODER_LA, RobotMap.DRIVE_ENCODER_LB);
+		chooser.addDefault("1", new DriveForwardBy(gearSleeve, driveTrain, 1, 0, encoder));
+		chooser.addObject(".1", new DriveForwardBy(gearSleeve, driveTrain, .1, 0, encoder));
+		chooser.addObject(".2", new DriveForwardBy(gearSleeve, driveTrain, .2, 0, encoder));
+		chooser.addObject(".3", new DriveForwardBy(gearSleeve, driveTrain, .3, 0, encoder));
+		chooser.addObject(".4", new DriveForwardBy(gearSleeve, driveTrain, .4, 0, encoder));
+		chooser.addObject(".5", new DriveForwardBy(gearSleeve, driveTrain, .5, 0, encoder));
+		chooser.addObject(".6", new DriveForwardBy(gearSleeve, driveTrain, .6, 0, encoder));
+		chooser.addObject(".7", new DriveForwardBy(gearSleeve, driveTrain, .7, 0, encoder));
+		chooser.addObject(".8", new DriveForwardBy(gearSleeve, driveTrain, .8, 0, encoder));
+		chooser.addObject(".9", new DriveForwardBy(gearSleeve, driveTrain, .9, 0, encoder));
+		SmartDashboard.putData("AUTO MODE", chooser);
 	}
 
 	/**
@@ -92,8 +104,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		// schedule the autonomous command (example)
-		autonomousCommand = new FullAuto(FullAuto.Start.CENTER);
+		autonomousCommand = chooser.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
